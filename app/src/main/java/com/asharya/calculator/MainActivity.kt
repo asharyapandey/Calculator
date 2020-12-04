@@ -81,9 +81,9 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
     }
     private fun calculate() {
+        finalExpression = "$numberOne $expression $numberTwo"
         tvEquation.text = finalExpression
         val result = when(expression) {
             "+" -> numberOne.toInt() + numberTwo.toInt()
