@@ -17,9 +17,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        tvAnswer= findViewById(R.id.tvAnswer)
-        tvEquation= findViewById(R.id.tvEquation)
-        val btnOne : Button = findViewById(R.id.btnOne)
+        tvAnswer = findViewById(R.id.tvAnswer)
+        tvEquation = findViewById(R.id.tvEquation)
+        val btnOne: Button = findViewById(R.id.btnOne)
         val btnTwo: Button = findViewById(R.id.btnTwo)
         val btnThree: Button = findViewById(R.id.btnThree)
         val btnFour: Button = findViewById(R.id.btnFour)
@@ -35,9 +35,23 @@ class MainActivity : AppCompatActivity() {
         val btnEquals: Button = findViewById(R.id.btnEquals)
         val btnClear: Button = findViewById(R.id.btnClear)
 
-        val buttons = mutableListOf<Button>(btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine, btnAdd, btnSubtract, btnDivide, btnMultiply)
+        val buttons = mutableListOf<Button>(
+            btnOne,
+            btnTwo,
+            btnThree,
+            btnFour,
+            btnFive,
+            btnSix,
+            btnSeven,
+            btnEight,
+            btnNine,
+            btnAdd,
+            btnSubtract,
+            btnDivide,
+            btnMultiply
+        )
 
-        for(button in buttons) {
+        for (button in buttons) {
             button.setOnClickListener {
                 set(button.text.toString())
             }
@@ -54,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun reset() {
         // resets all the values
-        finalExpression  = ""
+        finalExpression = ""
         expression = ""
         numberTwo = ""
         numberOne = ""
@@ -66,27 +80,28 @@ class MainActivity : AppCompatActivity() {
         if (finalExpression != "") {
             reset()
         }
-        when(text) {
-            "+", "-", "*","/", "%" -> {
+        when (text) {
+            "+", "-", "*", "/", "%" -> {
                 expression = text
                 tvAnswer.text = "$numberOne $expression"
             }
             else -> {
-               if (expression == "") {
-                   numberOne += text
-                   tvAnswer.text = numberOne
-               } else {
-                   numberTwo += text
-                   tvAnswer.text = "$numberOne $expression $numberTwo"
-               }
+                if (expression == "") {
+                    numberOne += text
+                    tvAnswer.text = numberOne
+                } else {
+                    numberTwo += text
+                    tvAnswer.text = "$numberOne $expression $numberTwo"
+                }
 
             }
         }
     }
+
     private fun calculate() {
         finalExpression = "$numberOne $expression $numberTwo"
         tvEquation.text = finalExpression
-        val result = when(expression) {
+        val result = when (expression) {
             "+" -> numberOne.toInt() + numberTwo.toInt()
             "-" -> numberOne.toInt() - numberTwo.toInt()
             "*" -> numberOne.toInt() * numberTwo.toInt()
