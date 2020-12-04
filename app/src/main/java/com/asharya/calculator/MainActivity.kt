@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvEquation: TextView
     private lateinit var tvAnswer: TextView
     private var numberOne = ""
-    private var expression = ""
+    private var operator = ""
     private var numberTwo = ""
     private var finalExpression = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         val btnSix: Button = findViewById(R.id.btnSix)
         val btnSeven: Button = findViewById(R.id.btnSeven)
         val btnEight: Button = findViewById(R.id.btnEight)
+        val btnZero: Button = findViewById(R.id.btnZero)
         val btnNine: Button = findViewById(R.id.btnNine)
         val btnAdd: Button = findViewById(R.id.btnAdd)
         val btnMultiply: Button = findViewById(R.id.btnMultiply)
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             btnSeven,
             btnEight,
             btnNine,
+            btnZero,
             btnAdd,
             btnSubtract,
             btnDivide,
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     private fun reset() {
         // resets all the values
         finalExpression = ""
-        expression = ""
+        operator = ""
         numberTwo = ""
         numberOne = ""
         tvEquation.text = "0"
@@ -77,21 +79,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun set(text: String) {
+        // to reset if the button is clicked after calculation
         if (finalExpression != "") {
             reset()
         }
         when (text) {
             "+", "-", "*", "/", "%" -> {
-                expression = text
-                tvAnswer.text = "$numberOne $expression"
+                operator = text
+                tvAnswer.text = "$numberOne $operator"
             }
             else -> {
-                if (expression == "") {
+                if (operator == "") {
                     numberOne += text
                     tvAnswer.text = numberOne
                 } else {
                     numberTwo += text
-                    tvAnswer.text = "$numberOne $expression $numberTwo"
+                    tvAnswer.text = "$numberOne $operator $numberTwo"
                 }
 
             }
@@ -99,9 +102,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculate() {
-        finalExpression = "$numberOne $expression $numberTwo"
+        finalExpression = "$numberOne $operator $numberTwo"
         tvEquation.text = finalExpression
-        val result = when (expression) {
+        val result = when (operator) {
             "+" -> numberOne.toInt() + numberTwo.toInt()
             "-" -> numberOne.toInt() - numberTwo.toInt()
             "*" -> numberOne.toInt() * numberTwo.toInt()
